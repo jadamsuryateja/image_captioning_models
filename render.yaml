@@ -4,8 +4,16 @@ services:
     env: python
     plan: standard
     buildCommand: |
+      # Install system dependencies
+      apt-get update && apt-get install -y \
+        python3-dev \
+        build-essential \
+        libjpeg-dev \
+        zlib1g-dev
+      # Update pip and install Python packages
       python -m pip install --upgrade pip
       pip install setuptools wheel
+      pip install --no-cache-dir Pillow>=10.2.0
       pip install torch==2.8.0 torchvision==0.23.0 --index-url https://download.pytorch.org/whl/cpu
       pip install -r requirements.txt
     startCommand: gunicorn app:app
