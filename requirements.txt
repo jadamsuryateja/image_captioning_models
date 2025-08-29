@@ -7,7 +7,8 @@ torchaudio==2.8.0
 Pillow>=10.2.0
 transformers==4.36.2
 sentence-transformers==2.0.0
-huggingface-hub==0.19.4
+huggingface-hub>=0.19.4,<0.20.0
+huggingface-hub[cli,torch]>=0.19.4,<0.20.0
 gunicorn==21.2.0
 werkzeug==3.0.0
 numpy>=1.22.0
