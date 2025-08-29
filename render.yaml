@@ -13,12 +13,10 @@ services:
       # Update pip and install Python packages
       python -m pip install --upgrade pip
       pip install setuptools wheel
-      # Install dependencies with specific versions
       pip install -r requirements.txt
-      # Create cache directory
       mkdir -p /opt/render/project/src/.cache/huggingface
     startCommand: |
-      gunicorn --workers=1 --timeout=0 app:app
+      gunicorn --bind 0.0.0.0:$PORT --workers=1 --timeout=0 app:app
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.8
