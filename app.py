@@ -14,6 +14,12 @@ from transformers import (
     GPT2LMHeadModel, GPT2Tokenizer
 )
 from sentence_transformers import SentenceTransformer
+import huggingface_hub
+from huggingface_hub import hf_hub_download  # Updated import
+
+# Update the model loading to use environment cache
+os.environ['TRANSFORMERS_CACHE'] = '/opt/render/project/src/.cache/huggingface'
+os.environ['HF_HOME'] = '/opt/render/project/src/.cache/huggingface'
 
 UPLOAD_FOLDER = 'uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
