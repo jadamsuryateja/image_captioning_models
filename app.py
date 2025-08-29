@@ -15,11 +15,14 @@ from transformers import (
 )
 from sentence_transformers import SentenceTransformer
 import huggingface_hub
-from huggingface_hub import hf_hub_download  # Updated import
+from huggingface_hub import hf_hub_download, HfApi, HfFolder, Repository
 
-# Update the model loading to use environment cache
-os.environ['TRANSFORMERS_CACHE'] = '/opt/render/project/src/.cache/huggingface'
-os.environ['HF_HOME'] = '/opt/render/project/src/.cache/huggingface'
+# Update cache paths before model loading
+cache_dir = os.path.join(os.getcwd(), '.cache', 'huggingface')
+os.makedirs(cache_dir, exist_ok=True)
+os.environ['TRANSFORMERS_CACHE'] = cache_dir
+os.environ['HF_HOME'] = cache_dir
+os.environ['HF_DATASETS_CACHE'] = cache_dir
 
 UPLOAD_FOLDER = 'uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
