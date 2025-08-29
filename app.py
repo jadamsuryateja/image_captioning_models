@@ -4,6 +4,8 @@ import torch
 from PIL import Image
 import io
 import os
+import logging
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 from transformers import (
     BlipProcessor, BlipForConditionalGeneration,
@@ -17,6 +19,7 @@ UPLOAD_FOLDER = 'uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 app = Flask(__name__, template_folder='templates')
+app.wsgi_app = ProxyFix(app.wsgi_app)
 
 # Device configuration
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -172,4 +175,7 @@ def caption():
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # Configure logging
+    logging.basicConfig(level=logging.INFO)
+    # Use production server settings when not in debug
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 8000)))
