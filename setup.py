@@ -6,7 +6,8 @@ setup(
     packages=find_packages(),
     install_requires=[
         "flask>=3.0.0",
-        "torch>=2.1.2",
+        "torch>=2.8.0",
+        "torchvision>=0.19.0",
         "Pillow>=10.0.0",
         "transformers>=4.36.2",
         "sentence-transformers>=2.2.2",
